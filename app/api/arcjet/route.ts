@@ -1,7 +1,7 @@
 import arcjet, { tokenBucket } from "@arcjet/next";
 import { NextResponse } from "next/server";
 
-export const aj = arcjet({
+const aj = arcjet({
   key: process.env.ARCJET_KEY!, // Get your site key from https://app.arcjet.com
   rules: [
     tokenBucket({
@@ -24,10 +24,10 @@ export async function GET(req: Request) {
 
   if (decision.isDenied()) {
     return NextResponse.json(
-      { 
-        error: "Free limit reached", 
+      {
+        error: "Free limit reached",
         paymentRequired: true,
-        redirectToPricing: "/pricing"
+        redirectToPricing: "/pricing",
       },
       { status: 429 }
     );
